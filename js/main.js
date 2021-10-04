@@ -1,28 +1,30 @@
+let console;
+
 function randomInteger(from, to) {
   if (from < 0 || to < 0) {
-    return 'Введены отрицательные числа!'
+    return 'Введены отрицательные числа!';
   }
   if (from >= to) {
     console.log('Возможно вы перепутали порядок цифр, мы поправим!');
-    let buffer = from;
+    const buffer = from;
     from = to;
     to = buffer;
   }
-  let random = from + Math.random() * (to + 1 - from);
+  const random = from + Math.random() * (to + 1 - from);
   return Math.floor(random);
 }
 
 function randomFloat(from, to, count) {
   if (from < 0 || to < 0) {
-    return 'Введены отрицательные числа!'
+    return 'Введены отрицательные числа!';
   }
   if (from >= to) {
     console.log('Возможно вы перепутали порядок цифр, мы поправим!');
-    let buffer = from;
+    const buffer = from;
     from = to;
     to = buffer;
   }
-  let random = from + Math.random() * (to - from);
+  const random = from + Math.random() * (to - from);
   return Math.floor(random * Math.pow(10, count)) / Math.pow(10, count);
 }
 
