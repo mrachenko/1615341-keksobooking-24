@@ -67,7 +67,7 @@ const createAuthor = () => {
   const avatarIndex =  getPositiveInteger(10);
   const avatarUrl = 'img/avatars/user';
   return {
-    avatar: avatarIndex < 10 ? `${avatarUrl}0${avatarIndex}.png` : `${avatarUrl}${avatarIndex}.png`
+    avatar: avatarIndex < 10 ? `${avatarUrl}0${avatarIndex}.png` : `${avatarUrl}${avatarIndex}.png`,
   };
 };
 
