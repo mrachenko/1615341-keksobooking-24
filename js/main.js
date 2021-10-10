@@ -48,23 +48,23 @@ const MAX_PRICE = 100;
 const MAX_ROOMS = 6;
 const MAX_GUESTS = 8;
 
-function getPositiveInteger (a, b = 1) {
-  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+function getPositiveInteger (min, max) {
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 }
 
-function getPositiveFloat (a, b, digits = 1) {
-  const lower = Math.min(Math.abs(a), Math.abs(b));
-  const upper = Math.max(Math.abs(a), Math.abs(b));
+function getPositiveFloat (min, max, digits) {
+  const lower = Math.min(Math.abs(min), Math.abs(max));
+  const upper = Math.max(Math.abs(min), Math.abs(max));
   const result = Math.random() * (upper - lower) + lower;
   return result.toFixed(digits);
 }
 
 
 const createAuthor = () => {
-  const avatarIndex =  getPositiveInteger(10);
+  const avatarIndex =  getPositiveInteger(1,10);
   const avatarUrl = 'img/avatars/user';
   return {
     avatar: avatarIndex < 10 ? `${avatarUrl}0${avatarIndex}.png` : `${avatarUrl}${avatarIndex}.png`,
@@ -97,10 +97,10 @@ const createOffer = (location) => {
   return {
     title: ADVERTISEMENT_TITLES[titleIndex],
     address:`${location.lat}, ${location.lng}`,
-    price: getPositiveInteger(MAX_PRICE),
+    price: getPositiveInteger(1, MAX_PRICE),
     type: PLACE_TYPES[typeIndex],
-    rooms: getPositiveInteger(MAX_ROOMS),
-    guests:  getPositiveInteger(MAX_GUESTS),
+    rooms: getPositiveInteger(1, MAX_ROOMS),
+    guests:  getPositiveInteger(1, MAX_GUESTS),
     checkin: CHECKIN_CHECKOUT_TIMES[checkinIndex],
     checkout:  CHECKIN_CHECKOUT_TIMES[checkoutIndex],
     features: getRandomItemsArray(FEATURES_TYPES),
