@@ -44,6 +44,8 @@ const LNG_MIN_VALUE = 139.70000;
 const LNG_MAX_VALUE = 139.80000;
 const LOCATION_VALUE_ACCURACY = 5;
 
+const DEFAULT_RANDOMIZER_START = 1;
+const MAX_AVATAR_INDEX = 10;
 const MAX_PRICE = 100;
 const MAX_ROOMS = 6;
 const MAX_GUESTS = 8;
@@ -64,7 +66,7 @@ function getPositiveFloat (min, max, digits) {
 
 
 const createAuthor = () => {
-  const avatarIndex =  getPositiveInteger(1,10);
+  const avatarIndex =  getPositiveInteger(DEFAULT_RANDOMIZER_START,MAX_AVATAR_INDEX);
   const avatarUrl = 'img/avatars/user';
   return {
     avatar: avatarIndex < 10 ? `${avatarUrl}0${avatarIndex}.png` : `${avatarUrl}${avatarIndex}.png`,
@@ -78,7 +80,7 @@ const createLocation = () => ({
 
 const getRandomItemsArray = (array) => {
   const items = array.slice();
-  const randomCount = getPositiveInteger(1,array.length-1);
+  const randomCount = getPositiveInteger(DEFAULT_RANDOMIZER_START,array.length-1);
   const resultArray = [];
   for (let i = 0; i < randomCount; i++ ) {
     const randomId = getPositiveInteger(items.length-1);
@@ -97,10 +99,10 @@ const createOffer = (location) => {
   return {
     title: ADVERTISEMENT_TITLES[titleIndex],
     address:`${location.lat}, ${location.lng}`,
-    price: getPositiveInteger(1, MAX_PRICE),
+    price: getPositiveInteger(DEFAULT_RANDOMIZER_START, MAX_PRICE),
     type: PLACE_TYPES[typeIndex],
-    rooms: getPositiveInteger(1, MAX_ROOMS),
-    guests:  getPositiveInteger(1, MAX_GUESTS),
+    rooms: getPositiveInteger(DEFAULT_RANDOMIZER_START, MAX_ROOMS),
+    guests:  getPositiveInteger(DEFAULT_RANDOMIZER_START, MAX_GUESTS),
     checkin: CHECKIN_CHECKOUT_TIMES[checkinIndex],
     checkout:  CHECKIN_CHECKOUT_TIMES[checkoutIndex],
     features: getRandomItemsArray(FEATURES_TYPES),
