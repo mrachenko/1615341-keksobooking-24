@@ -5,4 +5,4 @@ for (let i=0; i<10; i++) {
   outputArray.push(createAdvertisement());
 }
 
-
+console.log(outputArray);
