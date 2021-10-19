@@ -1,20 +1,20 @@
-const MIN_RANDOM_VALUE = 1;
+import {MIN_RANDOM_VALUE} from './constants/general.js';
 
-function getPositiveInteger (min, max) {
+export const getPositiveInteger = (min, max) => {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
-}
+};
 
-function getPositiveFloat (min, max, digits) {
+export const getPositiveFloat = (min, max, digits) => {
   const lower = Math.min(Math.abs(min), Math.abs(max));
   const upper = Math.max(Math.abs(min), Math.abs(max));
   const result = Math.random() * (upper - lower) + lower;
   return result.toFixed(digits);
-}
+};
 
-const getRandomItemsArray = (array) => {
+export const getRandomItemsArray = (array) => {
   const items = array.slice();
   const randomCount = getPositiveInteger(MIN_RANDOM_VALUE,array.length-1);
   const resultArray = [];
@@ -25,5 +25,3 @@ const getRandomItemsArray = (array) => {
   }
   return resultArray;
 };
-
-export {getPositiveInteger, getPositiveFloat, getRandomItemsArray, MIN_RANDOM_VALUE};

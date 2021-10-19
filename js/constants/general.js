@@ -1,0 +1,3 @@
+const MIN_RANDOM_VALUE = 1;
+
+export {MIN_RANDOM_VALUE};
