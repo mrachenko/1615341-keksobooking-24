@@ -51,6 +51,7 @@ outputArray.forEach((outputArrayItem) => {
       featureListItem.remove();
     }
   });
+  console.log(outputArrayItem.offer.photos);
   if (outputArrayItem.offer.photos.length > 0) {
     for (let i = 1; i < outputArrayItem.offer.photos.length; i++) {
       const appendPhoto = photoList[0].cloneNode(true);

@@ -16,6 +16,9 @@ export const getPositiveFloat = (min, max, digits) => {
 
 export const getRandomItemsArray = (array) => {
   const items = array.slice();
+  if (items.length === 0) {
+    return 0;
+  }
   const randomCount = getPositiveInteger(MIN_RANDOM_VALUE, array.length);
   const resultArray = [];
   for (let i = 0; i < randomCount; i++ ) {
