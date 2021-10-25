@@ -1,4 +1,5 @@
 import {createAdvertisement} from './data.js';
+import { prepareOutputField as prepareOutputField } from './utils.js';
 
 const outputArray = [];
 for (let i=0; i<10; i++) {
@@ -15,9 +16,9 @@ outputArray.forEach((outputArrayItem) => {
   const photoContainer = cardElement.querySelector('.popup__photos');
   let photoList = cardElement.querySelectorAll('.popup__photo');
 
-  cardElement.querySelector('.popup__title').textContent = outputArrayItem.offer.title;
-  cardElement.querySelector('.popup__text--address').textContent = outputArrayItem.offer.address;
-  cardElement.querySelector('.popup__text--price').textContent = `${outputArrayItem.offer.price} ₽/ночь`;
+  prepareOutputField(outputArrayItem.offer.title, cardElement.querySelector('.popup__title'));
+  prepareOutputField(outputArrayItem.offer.address, cardElement.querySelector('.popup__text--address'));
+  prepareOutputField(outputArrayItem.offer.price, cardElement.querySelector('.popup__text--price'));
   switch (outputArrayItem.offer.type) {
     case 'flat':
       cardElement.querySelector('.popup__text--address').textContent = 'Квартира';
@@ -34,11 +35,14 @@ outputArray.forEach((outputArrayItem) => {
     case 'hotel':
       cardElement.querySelector('.popup__text--address').textContent = 'Отель';
       break;
+    default:
+      cardElement.querySelector('.popup__text--address').classList.add('hidden');
   }
-  cardElement.querySelector('.popup__text--capacity').textContent = `${outputArrayItem.offer.rooms} комнаты для ${outputArrayItem.offer.guests} гостей`;
-  cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${outputArrayItem.offer.checkin}, выезд до ${outputArrayItem.offer.checkout}`;
-  cardElement.querySelector('.popup__description').textContent = outputArrayItem.offer.description;
-  cardElement.querySelector('.popup__avatar').src = outputArrayItem.author.avatar;
+  prepareOutputField((outputArrayItem.offer.rooms || outputArrayItem.offer.guests), cardElement.querySelector('.popup__text--capacity'), `${outputArrayItem.offer.rooms} комнаты для ${outputArrayItem.offer.guests} гостей` );
+  prepareOutputField((outputArrayItem.offer.checkin || outputArrayItem.offer.checkout), cardElement.querySelector('.popup__text--time'), `Заезд после ${outputArrayItem.offer.checkin}, выезд до ${outputArrayItem.offer.checkout}`);
+  prepareOutputField(outputArrayItem.offer.description, cardElement.querySelector('.popup__description'));
+  prepareOutputField(outputArrayItem.author.avatar, cardElement.querySelector('.popup__avatar'));
+
   featureList.forEach((featureListItem) => {
     const isNecessary = outputArrayItem.offer.features.some(
       (userEmotion) => featureListItem.classList.contains(`popup__feature--${userEmotion}`),
@@ -47,16 +51,20 @@ outputArray.forEach((outputArrayItem) => {
       featureListItem.remove();
     }
   });
+  if (outputArrayItem.offer.photos.length > 0) {
+    for (let i = 1; i < outputArrayItem.offer.photos.length; i++) {
+      const appendPhoto = photoList[0].cloneNode(true);
+      photoContainer.appendChild(appendPhoto);
+    }
 
-  for (let i = 1; i < outputArrayItem.offer.photos.length; i++) {
-    const appendPhoto = photoList[0].cloneNode(true);
-    photoContainer.appendChild(appendPhoto);
+    photoList = cardElement.querySelectorAll('.popup__photo');
+
+    for (let i = 0; i <= photoList.length-1; i++) {
+      photoList[i].src = outputArrayItem.offer.photos[i];
+    }
   }
-
-  photoList = cardElement.querySelectorAll('.popup__photo');
-
-  for (let i = 0; i <= photoList.length-1; i++) {
-    photoList[i].src = outputArrayItem.offer.photos[i];
+  else {
+    photoContainer.classList.add('hidden');
   }
   similarCardFragment.appendChild(cardElement);
 });

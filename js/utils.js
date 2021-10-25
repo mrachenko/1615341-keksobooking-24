@@ -25,3 +25,5 @@ export const getRandomItemsArray = (array) => {
   }
   return resultArray;
 };
+
+export const prepareOutputField = (checkValue, element, outputValue = checkValue) => checkValue ? element.textContent = outputValue : element.classList.add('hidden');
