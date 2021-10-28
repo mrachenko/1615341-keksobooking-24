@@ -24,19 +24,19 @@ const prepareOutputImage = (photosArray, card) => {
   photoContainer.classList.add('hidden');
 };
 
+const checkFeatureList = (feature, checkedItem) => {
+  const isNecessary = checkedItem.some(
+    (userEmotion) => feature.classList.contains(`popup__feature--${userEmotion}`),
+  );
+  if (!isNecessary) {
+    feature.remove();
+  }
+};
+
 const generateCardElement = (arrayItem) => {
   const cardElement = similarCardsTemplate.cloneNode(true);
   const featureContainer = cardElement.querySelector('.popup__features');
   const featureList = featureContainer.querySelectorAll('.popup__feature');
-
-  const checkFeatureList = (featureListItem) => {
-    const isNecessary = arrayItem.offer.features.some(
-      (userEmotion) => featureListItem.classList.contains(`popup__feature--${userEmotion}`),
-    );
-    if (!isNecessary) {
-      featureListItem.remove();
-    }
-  };
 
   prepareOutputField(arrayItem.offer.title, cardElement.querySelector('.popup__title'));
   prepareOutputField(arrayItem.offer.address, cardElement.querySelector('.popup__text--address'));
@@ -46,7 +46,7 @@ const generateCardElement = (arrayItem) => {
   prepareOutputField((arrayItem.offer.checkin || arrayItem.offer.checkout), cardElement.querySelector('.popup__text--time'), `Заезд после ${arrayItem.offer.checkin}, выезд до ${arrayItem.offer.checkout}`);
   prepareOutputField(arrayItem.offer.description, cardElement.querySelector('.popup__description'));
   prepareOutputField(arrayItem.author.avatar, cardElement.querySelector('.popup__avatar'));
-  arrayItem.offer.features.length > 0 ? featureList.forEach(checkFeatureList) : featureContainer.classList.add('hidden');
+  arrayItem.offer.features.length > 0 ? featureList.forEach((feature) => checkFeatureList(feature, arrayItem.offer.features)) : featureContainer.classList.add('hidden');
   prepareOutputImage(arrayItem.offer.photos, cardElement);
   similarCardFragment.appendChild(cardElement);
 };
