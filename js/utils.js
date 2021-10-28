@@ -16,12 +16,17 @@ export const getPositiveFloat = (min, max, digits) => {
 
 export const getRandomItemsArray = (array) => {
   const items = array.slice();
-  const randomCount = getPositiveInteger(MIN_RANDOM_VALUE,array.length-1);
+  if (items.length === 0) {
+    return 0;
+  }
+  const randomCount = getPositiveInteger(MIN_RANDOM_VALUE, array.length);
   const resultArray = [];
   for (let i = 0; i < randomCount; i++ ) {
-    const randomId = getPositiveInteger(items.length-1);
+    const randomId = getPositiveInteger(0, items.length-1);
     resultArray.push(items[randomId]);
     items.splice(randomId, 1);
   }
   return resultArray;
 };
+
+export const prepareOutputField = (checkValue, element, outputValue = checkValue) => checkValue ? element.textContent = outputValue : element.classList.add('hidden');

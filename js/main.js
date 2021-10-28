@@ -1,6 +1,4 @@
-import {createAdvertisement} from './data.js';
+import { similarCardFragment } from './cards.js';
 
-const outputArray = [];
-for (let i=0; i<10; i++) {
-  outputArray.push(createAdvertisement());
-}
+const mapPlace = document.querySelector('.map__canvas');
+mapPlace.appendChild(similarCardFragment.firstElementChild);
