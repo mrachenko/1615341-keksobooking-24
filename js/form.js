@@ -5,13 +5,27 @@ const adPriceForNight = document.querySelector('#price');
 const adRoomNumber = document.querySelector('#room_number');
 const adRoomCapacity  = document.querySelector('#capacity');
 const adRoomCapacitySelects = adRoomCapacity.querySelectorAll('option');
+const adHousingType = document.querySelector('#type');
+const adHousingPrice = document.querySelector('#price');
+const adTimeIn = document.querySelector('#timein');
+const adTimeOut = document.querySelector('#timeout');
 
-for (let i = 0; i < adRoomCapacitySelects.length; i++) {
-  adRoomCapacity.options[i].removeAttribute('disabled');
-  if (adRoomCapacity.options[i].value !== '1') {
-    adRoomCapacity.options[i].setAttribute('disabled','disabled');
+const setAdDefaultParameters = () => {
+  adRoomNumber.value = '1';
+  adRoomCapacity.value = '1';
+  for (let i = 0; i < adRoomCapacitySelects.length; i++) {
+    adRoomCapacity.options[i].removeAttribute('disabled');
+    if (adRoomCapacity.options[i].value !== adRoomNumber.value) {
+      adRoomCapacity.options[i].setAttribute('disabled','disabled');
+    }
   }
-}
+  adHousingType.value = 'flat';
+  adHousingPrice.setAttribute('min','1000');
+  adHousingPrice.setAttribute('placeholder','1000');
+};
+
+setAdDefaultParameters();
+
 
 adTitleInput.addEventListener('input', () => {
   const valueLength = adTitleInput.value.length;
@@ -70,4 +84,37 @@ adRoomNumber.addEventListener('change', () => {
       }
       break;
   }
+});
+
+adHousingType.addEventListener('change', () => {
+  switch (adHousingType.value) {
+    case 'bungalow':
+      adHousingPrice.setAttribute('min','0');
+      adHousingPrice.setAttribute('placeholder','0');
+      break;
+    case 'flat':
+      adHousingPrice.setAttribute('min','1000');
+      adHousingPrice.setAttribute('placeholder','1000');
+      break;
+    case 'hotel':
+      adHousingPrice.setAttribute('min','3000');
+      adHousingPrice.setAttribute('placeholder','3000');
+      break;
+    case 'house':
+      adHousingPrice.setAttribute('min','5000');
+      adHousingPrice.setAttribute('placeholder','5000');
+      break;
+    case 'palace':
+      adHousingPrice.setAttribute('min','10000');
+      adHousingPrice.setAttribute('placeholder','10000');
+      break;
+  }
+});
+
+adTimeIn.addEventListener('change', () => {
+  adTimeOut.value = adTimeIn.value;
+});
+
+adTimeOut.addEventListener('change', () => {
+  adTimeIn.value = adTimeOut.value;
 });
