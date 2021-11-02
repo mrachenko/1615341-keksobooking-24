@@ -1,120 +1,121 @@
-import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, MAX_PRICE_VALUE} from './mocks.js';
+import {MIN_TITLE_LENGTH, MAX_PRICE_VALUE, DEFAULT_ROOM_VALUE, DEFAULT_ROOM_CAPACITY, DEFAULT_HOUSING_TYPE, DEFAULT_HOUSING_PRICE, HOUSING_TYPE, ROOM_NUMBER} from './mocks.js';
 
-const adTitleInput = document.querySelector('#title');
-const adPriceForNight = document.querySelector('#price');
-const adRoomNumber = document.querySelector('#room_number');
-const adRoomCapacity  = document.querySelector('#capacity');
-const adRoomCapacitySelects = adRoomCapacity.querySelectorAll('option');
-const adHousingType = document.querySelector('#type');
-const adHousingPrice = document.querySelector('#price');
-const adTimeIn = document.querySelector('#timein');
-const adTimeOut = document.querySelector('#timeout');
+const advertisingTitleInput = document.querySelector('#title');
+const advertisingPriceForNight = document.querySelector('#price');
+const advertisingRoomNumber = document.querySelector('#room_number');
+const advertisingRoomCapacity  = document.querySelector('#capacity');
+const advertisingRoomCapacitySelects = advertisingRoomCapacity.querySelectorAll('option');
+const advertisingHousingType = document.querySelector('#type');
+const advertisingHousingPrice = document.querySelector('#price');
+const advertisingTimeIn = document.querySelector('#timein');
+const advertisingTimeOut = document.querySelector('#timeout');
 
-const setAdDefaultParameters = () => {
-  adRoomNumber.value = '1';
-  adRoomCapacity.value = '1';
-  for (let i = 0; i < adRoomCapacitySelects.length; i++) {
-    adRoomCapacity.options[i].removeAttribute('disabled');
-    if (adRoomCapacity.options[i].value !== adRoomNumber.value) {
-      adRoomCapacity.options[i].setAttribute('disabled','disabled');
+const setadvertisingDefaultParameters = () => {
+  advertisingRoomNumber.value = DEFAULT_ROOM_VALUE;
+  advertisingRoomCapacity.value = DEFAULT_ROOM_CAPACITY;
+  for (let i = 0; i < advertisingRoomCapacitySelects.length; i++) {
+    advertisingRoomCapacity.options[i].removeAttribute('disabled');
+    if (advertisingRoomCapacity.options[i].value !== advertisingRoomNumber.value) {
+      advertisingRoomCapacity.options[i].setAttribute('disabled','disabled');
     }
   }
-  adHousingType.value = 'flat';
-  adHousingPrice.setAttribute('min','1000');
-  adHousingPrice.setAttribute('placeholder','1000');
+  advertisingHousingType.value = DEFAULT_HOUSING_TYPE;
+  advertisingHousingPrice.setAttribute('min', DEFAULT_HOUSING_PRICE);
+  advertisingHousingPrice.setAttribute('placeholder', DEFAULT_HOUSING_PRICE);
 };
 
-setAdDefaultParameters();
+setadvertisingDefaultParameters();
 
 
-adTitleInput.addEventListener('input', () => {
-  const valueLength = adTitleInput.value.length;
+advertisingTitleInput.addEventListener('input', () => {
+  const valueLength = advertisingTitleInput.value.length;
 
   if (valueLength < MIN_TITLE_LENGTH) {
-    adTitleInput.setCustomValidity(`Ещё ${  MIN_TITLE_LENGTH - valueLength } симв.`);
-  } else if (valueLength > MAX_TITLE_LENGTH) {
-    adTitleInput.setCustomValidity(`Удалите лишние ${  valueLength - MAX_TITLE_LENGTH } симв.`);
+    advertisingTitleInput.setCustomValidity(`Ещё ${  MIN_TITLE_LENGTH - valueLength } симв.`);
   } else {
-    adTitleInput.setCustomValidity('');
+    advertisingTitleInput.setCustomValidity('');
   }
-  adTitleInput.reportValidity();
+  advertisingTitleInput.reportValidity();
 });
 
-adPriceForNight.addEventListener('input', () => {
-  if (adPriceForNight.value > MAX_PRICE_VALUE) {
-    adPriceForNight.setCustomValidity('Стоимость не может превышать 1 000 000.');
+advertisingPriceForNight.addEventListener('input', () => {
+  const minAdvertisingPrice = advertisingPriceForNight.getAttribute('min');
+  if (advertisingPriceForNight.value > MAX_PRICE_VALUE) {
+    advertisingPriceForNight.setCustomValidity('Стоимость не может превышать 1 000 000.');
+  } else if (advertisingPriceForNight.value < minAdvertisingPrice) {
+    advertisingPriceForNight.setCustomValidity(`Стоимость не может быть ниже ${minAdvertisingPrice}.`);
   } else {
-    adPriceForNight.setCustomValidity('');
+    advertisingPriceForNight.setCustomValidity('');
   }
-  adPriceForNight.reportValidity();
+  advertisingPriceForNight.reportValidity();
 });
 
-adRoomNumber.addEventListener('change', () => {
-  switch (adRoomNumber.value) {
-    case '1':
-      for (let i = 0; i < adRoomCapacitySelects.length; i++) {
-        adRoomCapacity.options[i].removeAttribute('disabled');
-        if (adRoomCapacity.options[i].value !== '1') {
-          adRoomCapacity.options[i].setAttribute('disabled','disabled');
+advertisingRoomNumber.addEventListener('change', () => {
+  switch (advertisingRoomNumber.value) {
+    case ROOM_NUMBER.ONE:
+      for (let i = 0; i < advertisingRoomCapacitySelects.length; i++) {
+        advertisingRoomCapacity.options[i].removeAttribute('disabled');
+        if (advertisingRoomCapacity.options[i].value && advertisingRoomCapacity.options[i].value !== '1') {
+          advertisingRoomCapacity.options[i].setAttribute('disabled','disabled');
         }
       }
       break;
-    case '2':
-      for (let i = 0; i < adRoomCapacitySelects.length; i++) {
-        adRoomCapacity.options[i].removeAttribute('disabled');
-        if (adRoomCapacity.options[i].value !== '1' && adRoomCapacity.options[i].value !== '2') {
-          adRoomCapacity.options[i].setAttribute('disabled','disabled');
+    case ROOM_NUMBER.TWO:
+      for (let i = 0; i < advertisingRoomCapacitySelects.length; i++) {
+        advertisingRoomCapacity.options[i].removeAttribute('disabled');
+        if (advertisingRoomCapacity.options[i].value && advertisingRoomCapacity.options[i].value !== '1' && advertisingRoomCapacity.options[i].value !== '2') {
+          advertisingRoomCapacity.options[i].setAttribute('disabled','disabled');
         }
       }
       break;
-    case '3':
-      for (let i = 0; i < adRoomCapacitySelects.length; i++) {
-        adRoomCapacity.options[i].removeAttribute('disabled');
-        if (adRoomCapacity.options[i].value !== '1' && adRoomCapacity.options[i].value !== '2' && adRoomCapacity.options[i].value !== '3') {
-          adRoomCapacity.options[i].setAttribute('disabled','disabled');
+    case ROOM_NUMBER.THREE:
+      for (let i = 0; i < advertisingRoomCapacitySelects.length; i++) {
+        advertisingRoomCapacity.options[i].removeAttribute('disabled');
+        if (advertisingRoomCapacity.options[i].value && advertisingRoomCapacity.options[i].value !== '100') {
+          advertisingRoomCapacity.options[i].setAttribute('disabled','disabled');
         }
       }
       break;
-    case '100':
-      for (let i = 0; i < adRoomCapacitySelects.length; i++) {
-        adRoomCapacity.options[i].removeAttribute('disabled');
-        if (adRoomCapacity.options[i].value !== '0') {
-          adRoomCapacity.options[i].setAttribute('disabled','disabled');
+    case ROOM_NUMBER.ONEHUNDRED:
+      for (let i = 0; i < advertisingRoomCapacitySelects.length; i++) {
+        advertisingRoomCapacity.options[i].removeAttribute('disabled');
+        if (advertisingRoomCapacity.options[i].value && advertisingRoomCapacity.options[i].value !== '0') {
+          advertisingRoomCapacity.options[i].setAttribute('disabled','disabled');
         }
       }
-      break;
-  }
-});
-
-adHousingType.addEventListener('change', () => {
-  switch (adHousingType.value) {
-    case 'bungalow':
-      adHousingPrice.setAttribute('min','0');
-      adHousingPrice.setAttribute('placeholder','0');
-      break;
-    case 'flat':
-      adHousingPrice.setAttribute('min','1000');
-      adHousingPrice.setAttribute('placeholder','1000');
-      break;
-    case 'hotel':
-      adHousingPrice.setAttribute('min','3000');
-      adHousingPrice.setAttribute('placeholder','3000');
-      break;
-    case 'house':
-      adHousingPrice.setAttribute('min','5000');
-      adHousingPrice.setAttribute('placeholder','5000');
-      break;
-    case 'palace':
-      adHousingPrice.setAttribute('min','10000');
-      adHousingPrice.setAttribute('placeholder','10000');
       break;
   }
 });
 
-adTimeIn.addEventListener('change', () => {
-  adTimeOut.value = adTimeIn.value;
+advertisingHousingType.addEventListener('change', () => {
+  switch (advertisingHousingType.value) {
+    case HOUSING_TYPE.BUNGALOW:
+      advertisingHousingPrice.setAttribute('min','0');
+      advertisingHousingPrice.setAttribute('placeholder','0');
+      break;
+    case HOUSING_TYPE.FLAT:
+      advertisingHousingPrice.setAttribute('min','1000');
+      advertisingHousingPrice.setAttribute('placeholder','1000');
+      break;
+    case HOUSING_TYPE.HOTEL:
+      advertisingHousingPrice.setAttribute('min','3000');
+      advertisingHousingPrice.setAttribute('placeholder','3000');
+      break;
+    case HOUSING_TYPE.HOUSE:
+      advertisingHousingPrice.setAttribute('min','5000');
+      advertisingHousingPrice.setAttribute('placeholder','5000');
+      break;
+    case HOUSING_TYPE.PALACE:
+      advertisingHousingPrice.setAttribute('min','10000');
+      advertisingHousingPrice.setAttribute('placeholder','10000');
+      break;
+  }
 });
 
-adTimeOut.addEventListener('change', () => {
-  adTimeIn.value = adTimeOut.value;
+advertisingTimeIn.addEventListener('change', () => {
+  advertisingTimeOut.value = advertisingTimeIn.value;
+});
+
+advertisingTimeOut.addEventListener('change', () => {
+  advertisingTimeIn.value = advertisingTimeOut.value;
 });
