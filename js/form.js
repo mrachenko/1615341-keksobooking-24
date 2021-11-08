@@ -119,4 +119,3 @@ advertisingTimeIn.addEventListener('change', () => {
 advertisingTimeOut.addEventListener('change', () => {
   advertisingTimeIn.value = advertisingTimeOut.value;
 });
-gi
