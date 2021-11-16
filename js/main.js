@@ -1,4 +1,4 @@
-import { similarCardFragment } from './cards.js';
+import { similarCardFragment, cards } from './cards.js';
 import { makePageActive, makePageInactive } from './activity.js';
 import './form.js';
 
@@ -43,9 +43,29 @@ mainPinMarker.on('moveend', (evt) => {
   objectAdress.value = `${evt.target.getLatLng().lat.toFixed(5)},${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
-console.log(similarCardFragment);
 
+cards.forEach((card) => {
+  const icon = L.icon({
+    iconUrl: '../img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
 
+  const currentLat = card.location.lat;
+  const currentLng = card.location.lng;
+  console.log(currentLat,',',currentLng);
+  const marker = L.marker(
+    {
+      currentLat,
+      currentLng,
+    },
+    {
+      icon,
+    },
+  );
+
+  marker.addTo(map);
+});
 // const mapPlace = document.querySelector('.map__canvas');
 // mapPlace.appendChild(similarCardFragment.firstElementChild);
 //

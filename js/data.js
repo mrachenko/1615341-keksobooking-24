@@ -11,7 +11,7 @@ const createAuthor = () => {
 };
 
 const createLocation = () => ({
-  lat: getPositiveFloat(LATITUDE.min, LONGTITUDE.max, LOCATION_VALUE_ACCURACY),
+  lat: getPositiveFloat(LATITUDE.min, LATITUDE.max, LOCATION_VALUE_ACCURACY),
   lng: getPositiveFloat(LONGTITUDE.min, LONGTITUDE.max, LOCATION_VALUE_ACCURACY),
 });
 
