@@ -13,11 +13,7 @@ const map = L.map('map-canvas')
     lng: 139.692,
   }, 10);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-},
-).addTo(map);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
 
 const mainPinIcon = L.icon({
   iconUrl: '../img/main-pin.svg',
@@ -43,21 +39,17 @@ mainPinMarker.on('moveend', (evt) => {
   objectAdress.value = `${evt.target.getLatLng().lat.toFixed(5)},${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
-
-cards.forEach((card) => {
+for (let i=0; i<cards.length-1;i++) {
   const icon = L.icon({
     iconUrl: '../img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
 
-  const currentLat = card.location.lat;
-  const currentLng = card.location.lng;
-  console.log(currentLat,',',currentLng);
   const marker = L.marker(
     {
-      currentLat,
-      currentLng,
+      lat: cards[i].location.lat,
+      lng: cards[i].location.lng,
     },
     {
       icon,
@@ -65,7 +57,8 @@ cards.forEach((card) => {
   );
 
   marker.addTo(map);
-});
+  marker.bindPopup(similarCardFragment.childNodes[i]);
+}
 // const mapPlace = document.querySelector('.map__canvas');
 // mapPlace.appendChild(similarCardFragment.firstElementChild);
 //
