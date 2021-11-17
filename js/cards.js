@@ -3,7 +3,7 @@ import { PLACE_MAP } from './mocks.js';
 import { prepareOutputField } from './utils.js';
 
 const cards = [];
-const similarCardsTemplate = document.querySelector('#card').content;
+const similarCardsTemplate = document.querySelector('#card').content.firstElementChild;
 const similarCardFragment = document.createDocumentFragment();
 
 const prepareOutputImage = (photosArray, card) => {
@@ -48,6 +48,7 @@ const generateCardElement = (arrayItem) => {
   prepareOutputField(arrayItem.author.avatar, cardElement.querySelector('.popup__avatar'));
   arrayItem.offer.features.length > 0 ? featureList.forEach((feature) => checkFeatureList(feature, arrayItem.offer.features)) : featureContainer.classList.add('hidden');
   prepareOutputImage(arrayItem.offer.photos, cardElement);
+
   similarCardFragment.appendChild(cardElement);
 };
 
@@ -57,4 +58,4 @@ for (let i=0; i<10; i++) {
 
 cards.forEach(generateCardElement);
 
-export {similarCardFragment};
+export {cards, similarCardFragment};
