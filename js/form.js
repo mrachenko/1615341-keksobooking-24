@@ -1,4 +1,4 @@
-import {MIN_TITLE_LENGTH, MAX_PRICE_VALUE, DEFAULT_ROOM_VALUE, DEFAULT_ROOM_CAPACITY, DEFAULT_HOUSING_TYPE, DEFAULT_HOUSING_PRICE, HOUSING_TYPE, ROOM_NUMBER} from './mocks.js';
+import {DEFAULT_LAT, DEFAULT_LNG, MIN_TITLE_LENGTH, MAX_PRICE_VALUE, DEFAULT_ROOM_VALUE, DEFAULT_ROOM_CAPACITY, DEFAULT_HOUSING_TYPE, DEFAULT_HOUSING_PRICE, HOUSING_TYPE, ROOM_NUMBER} from './mocks.js';
 
 const advertisingTitleInput = document.querySelector('#title');
 const advertisingPriceForNight = document.querySelector('#price');
@@ -9,10 +9,12 @@ const advertisingHousingType = document.querySelector('#type');
 const advertisingHousingPrice = document.querySelector('#price');
 const advertisingTimeIn = document.querySelector('#timein');
 const advertisingTimeOut = document.querySelector('#timeout');
+const advertisingAdress = document.querySelector('#address');
 
 const setadvertisingDefaultParameters = () => {
   advertisingRoomNumber.value = DEFAULT_ROOM_VALUE;
   advertisingRoomCapacity.value = DEFAULT_ROOM_CAPACITY;
+  advertisingAdress.value = `${DEFAULT_LAT}, ${DEFAULT_LNG}`;
   for (let i = 0; i < advertisingRoomCapacitySelects.length; i++) {
     advertisingRoomCapacity.options[i].removeAttribute('disabled');
     if (advertisingRoomCapacity.options[i].value !== advertisingRoomNumber.value) {
@@ -119,3 +121,4 @@ advertisingTimeIn.addEventListener('change', () => {
 advertisingTimeOut.addEventListener('change', () => {
   advertisingTimeIn.value = advertisingTimeOut.value;
 });
+
